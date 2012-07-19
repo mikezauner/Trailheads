@@ -1,0 +1,11 @@
+---------- Initial TODO and Feature Set ----------
+
+TODO:
+1) Figure out database structure
+    a) Tentatively, columns for coords, trail name, description, difficulty marker.
+2) Build code to access database
+3) Build code to access GPS, and tie-ins to navigation
+4) Figure out possibility of having topo maps of trail areas in offline storage
+    a) Size requirements?  Other issues?
+    b) Possibly use GMaps to display, or is there a better tie-in?
+5) Build code to track position over time and build nav-trail
