@@ -2,7 +2,7 @@
 
 TODO:
 1) Figure out database structure
-    a) Tentatively, columns for coords, trail name, description, difficulty marker.
+    a) Tentatively, columns for coords, trail name, description, difficulty marker, facilities.
 2) Build code to access database
 3) Build code to access GPS, and tie-ins to navigation
 4) Figure out possibility of having topo maps of trail areas in offline storage
