@@ -28,17 +28,17 @@ sqlite3 TrailHeads.sql "insert into trails values('$name', '$coords', '$difficul
 }
 
 #
-# Initial call prevents asking if I'd like to add another before I've added one.
+# Initial declaration of variable to ensure function of while loop.
 #
-insert;
+icont='y';
 
 #
 # Handles looping until done.
 #
-echo -n "Done!  Insert another row? (y/n) "
-read cont;
-icont=`echo $cont | tr [:upper:] [:lower:]`;
 while [ $icont = 'y' ] 
 do
     insert;
+    echo -n "Done!  Insert another row? (y/n) "
+    read cont;
+    icont=`echo $cont | tr [:upper:] [:lower:]`;
 done
