@@ -1,6 +1,6 @@
 package com.mikezauner.trailheads;
 
-public class Contact {
+public class Trail {
 // Column names...
 	String _name;
 	String _coords;
@@ -9,11 +9,11 @@ public class Contact {
 	String _facilities;
 	int _distance;
 // Empty constructor.
-	public Contact() {
+	public Trail() {
 		
 	}
 // Constructor
-	public Contact(String name, String coords, int difficulty, String description, String facilities, int distance) {
+	public Trail(String name, String coords, int difficulty, String description, String facilities, int distance) {
 		this._name = name;
 		this._coords = coords;
 		this._difficulty = difficulty;
