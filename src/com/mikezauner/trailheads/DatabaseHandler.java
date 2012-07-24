@@ -1,6 +1,10 @@
 package com.mikezauner.trailheads;
 
+import java.util.ArrayList;
+import java.util.List;
 import android.content.Context;
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -48,6 +52,62 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     	
     	// Insert new!
     	onCreate(db);
+    }
+    
+ // Getting single contact
+    public Trail getTrail(int name) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        
+        Cursor cursor = db.query(TABLE_TRAILS, new String[] { KEY_NAME, 
+        		KEY_COORDS, KEY_DIFFICULTY, KEY_DESCRIPTION, KEY_FACILITIES, KEY_LENGTH }, KEY_NAME + "=?",
+                new String[] { String.valueOf(name) }, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+ 
+        Trail trail = new Trail(cursor.getString(0),
+                cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3),
+                cursor.getString(4), Integer.parseInt(cursor.getString(5)));
+        // return contact
+        return trail;
+    }
+     
+    // Getting All Contacts
+    public List<Trail> getAllTrails() {
+        List<Trail> trailList = new ArrayList<Trail>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_TRAILS;
+ 
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+ 
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Trail trail= new Trail();
+                trail.setName(cursor.getString(0));
+                trail.setCoords(cursor.getString(1));
+                trail.setDifficulty(Integer.parseInt(cursor.getString(2)));
+                trail.setDescription(cursor.getString(3));
+                trail.setFacilities(cursor.getString(4));
+                trail.setDistance(Integer.parseInt(cursor.getString(5)));
+                // Adding contact to list
+                trailList.add(trail);
+            } while (cursor.moveToNext());
+        }
+ 
+        // return contact list
+        return trailList;
+    }
+     
+    // Getting contacts Count
+    public int getTrailCount() {
+        String countQuery = "SELECT  * FROM " + TABLE_TRAILS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        cursor.close();
+ 
+        // return count
+        return cursor.getCount();
     }
     
 }
