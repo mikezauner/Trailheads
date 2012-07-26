@@ -8,18 +8,20 @@ public class Trail {
 	String _description;
 	String _facilities;
 	int _distance;
+	int _id;
 // Empty constructor.
 	public Trail() {
 		
 	}
 // Constructor
-	public Trail(String name, String coords, int difficulty, String description, String facilities, int distance) {
+	public Trail(String name, String coords, int difficulty, String description, String facilities, int distance, int id) {
 		this._name = name;
 		this._coords = coords;
 		this._difficulty = difficulty;
 		this._description = description;
 		this._facilities = facilities;
 		this._distance = distance;
+		this._id = id;
 	}
 // getting the name of the trail.
 	public String getName() {
@@ -68,5 +70,13 @@ public class Trail {
 // set round trip distance
 	public void setDistance(int distance) {
 		this._distance = distance;
+	}
+// get ID
+	public int getID() {
+		return this._id;
+	}
+// Set ID
+	public void setID(int id) {
+		this._id = id;
 	}
 }

@@ -3,27 +3,20 @@ package com.mikezauner.trailheads;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Context;
-import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-
-	public DatabaseHandler(Context context, String name, CursorFactory factory,
-			int version) {
-		super(context, name, factory, version);
-		// TODO Auto-generated constructor stub
-	}
-
 	// All Static variables
-    // Database Version
+	// Database Version
     private static final int DATABASE_VERSION = 1;
- 
-    // Database Name
-    private static final String DATABASE_NAME = "TrailHeads.sql";
-    
+    // Database Location
+    private static final String DATABASE_PATH = "/data/data/com.mikezauner.trailheads/databases/";
+	// Database Name
+    private static final String DATABASE_NAME = "TrailHeads.sqlite";
     // TrailHeads table name
     private static final String TABLE_TRAILS = "trails";
     
@@ -34,13 +27,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_FACILITIES = "facilities";
     private static final String KEY_LENGTH = "length";
+    private static final String KEY_ID = "id";
+	public DatabaseHandler(Context context) {
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+	}
     
+    public SQLiteDatabase openDataBase() throws SQLException{
+        String myPath = DATABASE_PATH + DATABASE_NAME;
+        try {
+        	SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+        }
+        catch(Exception e) {
+        	Log.v("EXCEPTION: ", ""+e);
+        }
+		return null;
+    }
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-    	String CREATE_TRAILS_TABLE = "CREATE TABLE " + TABLE_TRAILS + "(" + KEY_NAME + " varchar[30], " + KEY_COORDS
-    			+ " varchar[30], " + KEY_DIFFICULTY + " smallint, " + KEY_DESCRIPTION + " varchar[200], " + KEY_FACILITIES
-    			+ " varchar[30], " + KEY_LENGTH + " integer);";
+    	String CREATE_TRAILS_TABLE = "CREATE TABLE " + TABLE_TRAILS + "(" + KEY_NAME + " text, " + KEY_COORDS
+    			+ " text, " + KEY_DIFFICULTY + " smallint, " + KEY_DESCRIPTION + " text, " + KEY_FACILITIES
+    			+ " text, " + KEY_LENGTH + " integer, " + KEY_ID + " integer primary key);";
     	db.execSQL(CREATE_TRAILS_TABLE);
     }
     
@@ -59,16 +66,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         
         Cursor cursor = db.query(TABLE_TRAILS, new String[] { KEY_NAME, 
-        		KEY_COORDS, KEY_DIFFICULTY, KEY_DESCRIPTION, KEY_FACILITIES, KEY_LENGTH }, KEY_NAME + "=?",
+        		KEY_COORDS, KEY_DIFFICULTY, KEY_DESCRIPTION, KEY_FACILITIES, KEY_LENGTH, KEY_ID }, KEY_NAME + "=?",
                 new String[] { String.valueOf(name) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
  
         Trail trail = new Trail(cursor.getString(0),
                 cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3),
-                cursor.getString(4), Integer.parseInt(cursor.getString(5)));
+                cursor.getString(4), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
         // return contact
         return trail;
+    }
+    public Trail getTrailByID(int id) {
+    	SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_TRAILS, new String[] { KEY_ID, 
+        		KEY_COORDS, KEY_DIFFICULTY, KEY_DESCRIPTION, KEY_FACILITIES, KEY_LENGTH, KEY_ID }, KEY_ID + "=?",
+                new String[] { String.valueOf(id) }, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+ 
+        Trail trail = new Trail(cursor.getString(0),
+                cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3),
+                cursor.getString(4), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
+        // return contact
+    	return trail;
     }
      
     // Getting All Contacts
@@ -90,6 +111,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 trail.setDescription(cursor.getString(3));
                 trail.setFacilities(cursor.getString(4));
                 trail.setDistance(Integer.parseInt(cursor.getString(5)));
+                trail.setID(Integer.parseInt(cursor.getString(6)));
                 // Adding contact to list
                 trailList.add(trail);
             } while (cursor.moveToNext());
