@@ -5,5 +5,5 @@
     <string name="title_activity_trailheads">TrailHeads</string>
     <string name="nextButton">Next</string>
     <string name="prevButton">Previous</string>
-
+	<string name="menuNext">Next</string>
 </resources>

@@ -51,25 +51,5 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/facilities"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Button
-        android:id="@+id/nextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:gravity="center_vertical|fill_horizontal"
-        android:text="@string/nextButton"
-    	android:onClick="myNextClick" />
-
-    <Button
-        android:id="@+id/prevButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:gravity="center_vertical|fill_horizontal"
-        android:text="@string/prevButton"
-    	android:onClick="myPrevClick" />
     
 </RelativeLayout>

@@ -1,54 +1,42 @@
 package com.mikezauner.trailheads;
 
-import java.util.ArrayList;
-import java.util.List;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
-public class DatabaseHandler extends SQLiteOpenHelper {
-	// All Static variables
-	// Database Version
-    private static final int DATABASE_VERSION = 1;
-    // Database Location
-    private static final String DATABASE_PATH = "/data/data/com.mikezauner.trailheads/databases/";
-	// Database Name
+public class DatabaseHandler {
+
+    public static final String KEY_NAME = "name";
+    public static final String KEY_DIFFICULTY= "difficulty";
+    public static final String KEY_ID = "id";
+    public static final String KEY_DESCRIPTION = "description";
+    public static final String KEY_COORDS = "coords";
+    public static final String KEY_LENGTH = "length";
+    public static final String KEY_FACILITIES = "facilities";
+
+    private static DatabaseHelper mDbHelper;
+    private static SQLiteDatabase mDb;
+
+
     private static final String DATABASE_NAME = "TrailHeads.sqlite";
-    // TrailHeads table name
     private static final String TABLE_TRAILS = "trails";
-    
-    // TrailHeads column names
-    private static final String KEY_NAME = "name";
-    private static final String KEY_COORDS = "coords";
-    private static final String KEY_DIFFICULTY = "difficulty";
-    private static final String KEY_DESCRIPTION = "description";
-    private static final String KEY_FACILITIES = "facilities";
-    private static final String KEY_LENGTH = "length";
-    private static final String KEY_ID = "id";
-	public DatabaseHandler(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-	}
-    
-    public SQLiteDatabase openDataBase() throws SQLException{
-        String myPath = DATABASE_PATH + DATABASE_NAME;
-        try {
-        	SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-        }
-        catch(Exception e) {
-        	Log.v("EXCEPTION: ", ""+e);
-        }
-		return null;
-    }
-    // Creating Tables
-    @Override
+    private static final int DATABASE_VERSION = 2;
+
+    private static Context mCtx;
+
+    private static class DatabaseHelper extends SQLiteOpenHelper {
+
+        DatabaseHelper(Context context) {
+            super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        }      
+        
     public void onCreate(SQLiteDatabase db) {
     	String CREATE_TRAILS_TABLE = "CREATE TABLE " + TABLE_TRAILS + "(" + KEY_NAME + " text, " + KEY_COORDS
     			+ " text, " + KEY_DIFFICULTY + " smallint, " + KEY_DESCRIPTION + " text, " + KEY_FACILITIES
     			+ " text, " + KEY_LENGTH + " integer, " + KEY_ID + " integer primary key);";
-    	db.execSQL(CREATE_TRAILS_TABLE);
+//    	db.execSQL(CREATE_TRAILS_TABLE);
     }
     
     // Upgrading database
@@ -60,45 +48,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     	// Insert new!
     	onCreate(db);
     }
-    
- // Getting single contact
-    public Trail getTrail(int name) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        
-        Cursor cursor = db.query(TABLE_TRAILS, new String[] { KEY_NAME, 
-        		KEY_COORDS, KEY_DIFFICULTY, KEY_DESCRIPTION, KEY_FACILITIES, KEY_LENGTH, KEY_ID }, KEY_NAME + "=?",
-                new String[] { String.valueOf(name) }, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
- 
-        Trail trail = new Trail(cursor.getString(0),
-                cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3),
-                cursor.getString(4), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
-        // return contact
-        return trail;
     }
-    public Trail getTrailByID(int id) {
-    	SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_TRAILS, new String[] { KEY_ID, 
-        		KEY_COORDS, KEY_DIFFICULTY, KEY_DESCRIPTION, KEY_FACILITIES, KEY_LENGTH, KEY_ID }, KEY_ID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
- 
-        Trail trail = new Trail(cursor.getString(0),
-                cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3),
-                cursor.getString(4), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
-        // return contact
-    	return trail;
+    public DatabaseHandler(Context ctx) {
+        this.mCtx = ctx;
+    }
+    
+    public DatabaseHandler open() throws SQLException {
+        mDbHelper = new DatabaseHelper(mCtx);
+        mDb = mDbHelper.getWritableDatabase();
+        return this;
+    } 
+ // Getting single contact
+    public Cursor getTrail(int id) throws SQLException {
+        Cursor mCursor =
+
+                mDb.query(true, TABLE_TRAILS, new String[] {KEY_ID,
+                        KEY_NAME, KEY_COORDS, KEY_DIFFICULTY, KEY_DESCRIPTION, KEY_FACILITIES, KEY_LENGTH}, KEY_ID + "=" + id, null,
+                        null, null, null, null);
+            if (mCursor != null) {
+                mCursor.moveToFirst();
+            }
+            return mCursor;
     }
      
     // Getting All Contacts
-    public List<Trail> getAllTrails() {
+/*    public List<Trail> getAllTrails() {
         List<Trail> trailList = new ArrayList<Trail>();
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_TRAILS;
- 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.open();
         Cursor cursor = db.rawQuery(selectQuery, null);
  
         // looping through all rows and adding to list
@@ -124,12 +102,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Getting contacts Count
     public int getTrailCount() {
         String countQuery = "SELECT  * FROM " + TABLE_TRAILS;
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.open();
         Cursor cursor = db.rawQuery(countQuery, null);
         cursor.close();
  
         // return count
         return cursor.getCount();
-    }
-    
+    } */
 }
