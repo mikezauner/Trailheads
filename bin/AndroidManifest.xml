@@ -22,6 +22,11 @@
         </activity>
                         <activity android:name=".DatabaseHandler" /> 
                         <activity android:name=".Trail" />
-        </application>
+                        <activity android:name=".Details">
+                            <intent-filter>
+                                <action android:name="com.google.android.apps.maps"></action>
+                            </intent-filter>
+                        </activity>
+	</application>
 
 </manifest>

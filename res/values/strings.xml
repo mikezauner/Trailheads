@@ -3,7 +3,6 @@
     <string name="app_name">TrailHeads</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_trailheads">TrailHeads</string>
-    <string name="nextButton">Next</string>
-    <string name="prevButton">Previous</string>
+    <string name="navigate">Navigate!</string>
 	<string name="menuNext">Next</string>
 </resources>

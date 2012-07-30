@@ -33,13 +33,13 @@ public class DatabaseHandler {
         }      
         
     public void onCreate(SQLiteDatabase db) {
-    	String CREATE_TRAILS_TABLE = "CREATE TABLE " + TABLE_TRAILS + "(" + KEY_NAME + " text, " + KEY_COORDS
-    			+ " text, " + KEY_DIFFICULTY + " smallint, " + KEY_DESCRIPTION + " text, " + KEY_FACILITIES
-    			+ " text, " + KEY_LENGTH + " integer, " + KEY_ID + " integer primary key);";
+//    	String CREATE_TRAILS_TABLE = "CREATE TABLE " + TABLE_TRAILS + "(" + KEY_NAME + " text, " + KEY_COORDS
+//    			+ " text, " + KEY_DIFFICULTY + " smallint, " + KEY_DESCRIPTION + " text, " + KEY_FACILITIES
+//    			+ " text, " + KEY_LENGTH + " integer, " + KEY_ID + " integer primary key);";
 //    	db.execSQL(CREATE_TRAILS_TABLE);
     }
     
-    // Upgrading database
+    // Upgrading databasesimple_list_item_1
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     	// Drop old tables if they're there.
@@ -52,7 +52,10 @@ public class DatabaseHandler {
     public DatabaseHandler(Context ctx) {
         this.mCtx = ctx;
     }
-    
+    public DatabaseHandler close() throws SQLException {
+        mDb.close();
+        return this;
+    } 
     public DatabaseHandler open() throws SQLException {
         mDbHelper = new DatabaseHelper(mCtx);
         mDb = mDbHelper.getWritableDatabase();
@@ -71,42 +74,32 @@ public class DatabaseHandler {
             return mCursor;
     }
      
-    // Getting All Contacts
-/*    public List<Trail> getAllTrails() {
-        List<Trail> trailList = new ArrayList<Trail>();
+    // Getting All Trail Names.
+    public Cursor getAllTrails() {
+        //List trailList = new ArrayList<Trail>();
         // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_TRAILS;
-        SQLiteDatabase db = this.open();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor mCursor = mDb.query(true, TABLE_TRAILS, new String[] {KEY_NAME}, null, null, null, null, null, null);
  
         // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
+/*        if (mCursor.moveToFirst()) {
             do {
                 Trail trail= new Trail();
-                trail.setName(cursor.getString(0));
-                trail.setCoords(cursor.getString(1));
-                trail.setDifficulty(Integer.parseInt(cursor.getString(2)));
-                trail.setDescription(cursor.getString(3));
-                trail.setFacilities(cursor.getString(4));
-                trail.setDistance(Integer.parseInt(cursor.getString(5)));
-                trail.setID(Integer.parseInt(cursor.getString(6)));
+                trail.setName(mCursor.getString(0));
+                //trail.setName(mCursor.getString(1));
                 // Adding contact to list
                 trailList.add(trail);
-            } while (cursor.moveToNext());
-        }
- 
+            } while (mCursor.moveToNext()); 
+        	
+        } */
         // return contact list
-        return trailList;
+        return mCursor;
     }
-     
-    // Getting contacts Count
-    public int getTrailCount() {
-        String countQuery = "SELECT  * FROM " + TABLE_TRAILS;
-        SQLiteDatabase db = this.open();
-        Cursor cursor = db.rawQuery(countQuery, null);
-        cursor.close();
- 
-        // return count
-        return cursor.getCount();
-    } */
+    
+    public int getCount() {
+    	int count;
+    	String query = "SELECT COUNT(*) FROM " + TABLE_TRAILS;
+    	Cursor cursorCount = mDb.rawQuery(query, null);
+    	count = cursorCount.getCount();
+    	return count;
+    }
 }
