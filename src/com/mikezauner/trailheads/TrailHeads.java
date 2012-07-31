@@ -2,12 +2,10 @@ package com.mikezauner.trailheads;
 
 
 import java.util.ArrayList;
-
 import android.os.Bundle;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,7 +18,7 @@ public class TrailHeads extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
     	setContentView(R.layout.activity_trailheads);
-        mDbHelper = new DatabaseHandler(this);
+    	mDbHelper = new DatabaseHandler(this);
         mDbHelper.open();
         Cursor names = mDbHelper.getAllTrails();
         ArrayList<String> mNameList = new ArrayList<String>();
@@ -41,7 +39,6 @@ public class TrailHeads extends ListActivity {
 		position++;
 		Intent intent = new Intent(this.getApplicationContext(), Details.class);
 		mDbHelper.close();
-		Log.v("Intent", ""+position);
 		intent.putExtra("position", position);
 		startActivity(intent);
 	}

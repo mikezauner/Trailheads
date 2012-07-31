@@ -2,8 +2,8 @@
     package="com.mikezauner.trailheads"
     android:versionCode="1"
     android:versionName="1.0" >
-                            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-						<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+		<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+		<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -18,18 +18,17 @@
             android:label="@string/title_activity_trailheads" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-                        <activity android:name=".DatabaseHandler" /> 
-                        <activity android:name=".Trail" />
-                        <activity android:name=".Details">
-                            <intent-filter>
-                                <action android:name="com.google.android.apps.maps"></action>
-                            </intent-filter>
-                        </activity>
-                        <activity android:name=".LocationManager" />
+		<activity android:name=".DatabaseHandler" /> 
+        <activity android:name=".Trail" />
+        <activity android:name=".Details">
+        	<intent-filter>
+                <action android:name="com.google.android.apps.maps"></action>
+            </intent-filter>
+		</activity>
+		<activity android:name=".MyLocation" />
 	</application>
 
 </manifest>
