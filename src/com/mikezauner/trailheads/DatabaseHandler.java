@@ -76,22 +76,8 @@ public class DatabaseHandler {
      
     // Getting All Trail Names.
     public Cursor getAllTrails() {
-        //List trailList = new ArrayList<Trail>();
         // Select All Query
-        Cursor mCursor = mDb.query(true, TABLE_TRAILS, new String[] {KEY_NAME}, null, null, null, null, null, null);
- 
-        // looping through all rows and adding to list
-/*        if (mCursor.moveToFirst()) {
-            do {
-                Trail trail= new Trail();
-                trail.setName(mCursor.getString(0));
-                //trail.setName(mCursor.getString(1));
-                // Adding contact to list
-                trailList.add(trail);
-            } while (mCursor.moveToNext()); 
-        	
-        } */
-        // return contact list
+        Cursor mCursor = mDb.query(true, TABLE_TRAILS, new String[] {KEY_NAME, KEY_COORDS}, null, null, null, null, null, null);
         return mCursor;
     }
     
@@ -99,7 +85,8 @@ public class DatabaseHandler {
     	int count;
     	String query = "SELECT COUNT(*) FROM " + TABLE_TRAILS;
     	Cursor cursorCount = mDb.rawQuery(query, null);
-    	count = cursorCount.getCount();
+    	cursorCount.moveToFirst();
+    	count = cursorCount.getInt(0);
     	return count;
     }
 }

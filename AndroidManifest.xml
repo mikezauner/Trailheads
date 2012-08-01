@@ -29,6 +29,8 @@
             </intent-filter>
 		</activity>
 		<activity android:name=".MyLocation" />
-	</application>
+        <activity android:name=".CustomList" />
+        <activity android:name=".TrailListData" />
+        			</application>
 
 </manifest>

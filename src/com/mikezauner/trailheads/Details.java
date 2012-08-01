@@ -95,11 +95,11 @@ public class Details extends Activity {
     	TextView description = (TextView)findViewById(R.id.description);
         name.setText(TrailCursor.getString(
         		TrailCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_NAME)));
-        distance.setText(dist);
+        distance.setText(dist + " miles from here");
         facilities.setText(TrailCursor.getString(
         		TrailCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_FACILITIES)));
         length.setText(TrailCursor.getString(
-        		TrailCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_LENGTH)));
+        		TrailCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_LENGTH)) + " miles long");
         description.setText(TrailCursor.getString(
         		TrailCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DESCRIPTION)));
         return true;
