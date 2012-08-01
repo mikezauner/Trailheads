@@ -11,3 +11,4 @@ TODO:
 5) Build code to track position over time and build nav-trail
 6) Allow for sorting by difficulty, distance, proximity to TH, etc.
 7) Use Location class to calculate distance between current location and TH.
+8) Add database marker to determine whether or not permit is required.
