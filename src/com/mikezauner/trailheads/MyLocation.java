@@ -6,6 +6,7 @@ import android.content.Context;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.util.Log;
 
 public class MyLocation {
 	Context mContext;
@@ -18,6 +19,7 @@ public class MyLocation {
 		LocationManager locationManager = (LocationManager) mContext.getSystemService(context);
     	String provider = locationManager.getBestProvider(criteria, false);
     	Location location = locationManager.getLastKnownLocation(provider);
+    	Log.v("PROVIDER", provider);
     	return location;
 	}
 	public String CalculateDistance(String dest, Location myLocation) {
