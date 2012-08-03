@@ -1,14 +1,20 @@
 ---------- Initial TODO and Feature Set ----------
 
 TODO:
-1) Figure out database structure
+X) Figure out database structure
     a) Tentatively, columns for coords, trail name, description, difficulty marker, facilities.
-2) Build code to access database
-3) Build code to access GPS, and tie-ins to navigation
-4) Figure out possibility of having topo maps of trail areas in offline storage
+X) Build code to access database
+X) Build code to access GPS, and tie-ins to navigation
+    a) TODO: Bug in onResume() bit.  Figure this out when less stoned on pain meds.
+X) Figure out possibility of having topo maps of trail areas in offline storage
     a) Size requirements?  Other issues?
     b) Possibly use GMaps to display, or is there a better tie-in?
+        i) using topo won't work.  gmaps doesn't work because of API issue. Using OSM is the best option.
 5) Build code to track position over time and build nav-trail
 6) Allow for sorting by difficulty, distance, proximity to TH, etc.
-7) Use Location class to calculate distance between current location and TH.
-8) Add database marker to determine whether or not permit is required.
+X) Use Location class to calculate distance between current location and TH.
+X) Add database marker to determine whether or not permit is required.
+9) Add trail submission form/gapps for mikezauner.com.
+10) Figure out DB update scheme that doesn't require ridiculousness like a full app update.
+11) Investigate adding other states and doing state-by-state maps/trail databases.
+
