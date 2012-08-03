@@ -19,6 +19,7 @@ public class Details extends Activity {
     private Cursor TrailCursor;
 	private DatabaseHandler mDbHelper;
 	private MyLocation myLocation;
+	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
@@ -44,6 +45,10 @@ public class Details extends Activity {
 		case R.id.menu_settings:
 			Intent intent = new Intent(this.getApplicationContext(), Preferences.class);
 			startActivity(intent);
+			return true;
+		case R.id.menu_about:
+			Intent about = new Intent(this.getApplicationContext(), About.class);
+			startActivity(about);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

@@ -10,4 +10,14 @@
 		android:entries="@array/locationArray"
 		android:entryValues="@array/locationValues" />
 	</PreferenceCategory>
+	<PreferenceCategory 
+	    android:title="@string/pref_state"
+	    android:key="pref_state_settings">
+	<ListPreference 
+	    android:key="state"
+	    android:title="State"
+	    android:summary="Select a state for offline map use"
+	    android:entries="@array/stateArray"
+	    android:entryValues="@array/stateArray"/>
+	</PreferenceCategory>
 </PreferenceScreen>

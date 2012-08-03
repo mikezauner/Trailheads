@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:isScrollContainer="true"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:scrollbars="vertical" >
+
+    <TextView
+        android:id="@+id/titleView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:autoLink="web"
+        android:gravity="center"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleView1"
+        android:layout_centerHorizontal="true"
+        android:autoLink="web"
+        android:gravity="center" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView1"
+            android:layout_centerInParent="true"
+            android:autoLink="web"
+            android:gravity="center" />
+
+            <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_below="@+id/textView2" 
+        android:gravity="center"
+        android:autoLink="web" />
+        <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_below="@+id/textView3"
+        android:gravity="center"
+        android:autoLink="web" />        
+    
+</RelativeLayout>
