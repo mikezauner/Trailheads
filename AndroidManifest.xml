@@ -31,6 +31,7 @@
 		<activity android:name=".MyLocation" />
         <activity android:name=".CustomList" />
         <activity android:name=".TrailListData" />
+        <activity android:name=".Preferences"/>
         			</application>
 
 </manifest>

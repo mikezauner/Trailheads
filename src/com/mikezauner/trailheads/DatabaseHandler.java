@@ -15,6 +15,7 @@ public class DatabaseHandler {
     public static final String KEY_COORDS = "coords";
     public static final String KEY_LENGTH = "length";
     public static final String KEY_FACILITIES = "facilities";
+    public static final String KEY_PERMIT = "permit";
 
     private static DatabaseHelper mDbHelper;
     private static SQLiteDatabase mDb;
@@ -50,7 +51,7 @@ public class DatabaseHandler {
     }
     }
     public DatabaseHandler(Context ctx) {
-        this.mCtx = ctx;
+        DatabaseHandler.mCtx = ctx;
     }
     public DatabaseHandler close() throws SQLException {
         mDb.close();
@@ -66,7 +67,7 @@ public class DatabaseHandler {
         Cursor mCursor =
 
                 mDb.query(true, TABLE_TRAILS, new String[] {KEY_ID,
-                        KEY_NAME, KEY_COORDS, KEY_DIFFICULTY, KEY_DESCRIPTION, KEY_FACILITIES, KEY_LENGTH}, KEY_ID + "=" + id, null,
+                        KEY_NAME, KEY_COORDS, KEY_DIFFICULTY, KEY_DESCRIPTION, KEY_FACILITIES, KEY_LENGTH, KEY_PERMIT}, KEY_ID + "=" + id, null,
                         null, null, null, null);
             if (mCursor != null) {
                 mCursor.moveToFirst();

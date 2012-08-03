@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,7 +18,8 @@ public class Details extends Activity {
 //    private static final int NEXT_ID = Menu.FIRST;
     private Cursor TrailCursor;
 	private DatabaseHandler mDbHelper;
-    @Override
+	private MyLocation myLocation;
+	@Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
     	setContentView(R.layout.activity_details);
@@ -34,26 +38,43 @@ public class Details extends Activity {
             }
         });
     }
-/*    @Override
+    @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        switch(item.getItemId()) {
-            case NEXT_ID:
-            	id++;
-                displayNext(id);
-                return true;
-        }
-        return super.onMenuItemSelected(featureId, item);
+		switch (item.getItemId()) {
+		case R.id.menu_settings:
+			Intent intent = new Intent(this.getApplicationContext(), Preferences.class);
+			startActivity(intent);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
     }
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        menu.add(0, NEXT_ID, 0, R.string.menuNext);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_details, menu);
         return true;
     }
-*/
-    public boolean displayNext(int id) {
-    	MyLocation myLocation = new MyLocation(this);
+
+   @Override
+    protected void onStop() {
+	   super.onStop();
+    	myLocation.stopService();
+    }
+   @Override
+   protected void onDestroy() {
+	   super.onDestroy();
+	   myLocation.stopService();
+   }
+ //  @Override
+//   protected void onPause() {
+//	   super.onPause();
+//	   myLocation.stopService();
+//   }
+   public boolean displayNext(int id) {
+    	myLocation = new MyLocation(this);
     	Location location = myLocation.myLocation();
     	TrailCursor = mDbHelper.getTrail(id);
     	String Coords = TrailCursor.getString(
@@ -62,6 +83,8 @@ public class Details extends Activity {
     	mDbHelper.close();
         int difficulty = TrailCursor.getInt(
         		TrailCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DIFFICULTY));
+        int permit = TrailCursor.getInt(
+        		TrailCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PERMIT));
         switch(difficulty) {
         case 1:
             ImageView image1 = (ImageView) findViewById(R.id.imageView1);
@@ -87,6 +110,13 @@ public class Details extends Activity {
         	image8.setImageResource(R.drawable.ic_star);
         	image9.setImageResource(R.drawable.ic_star);
         	break;
+        }
+        ImageView image10 = (ImageView) findViewById(R.id.imageView4);
+        if (permit == 0) {
+        	image10.setImageResource(R.drawable.ic_check);
+        }
+        else {
+        	image10.setImageResource(R.drawable.ic_exclamation);
         }
     	TextView name = (TextView)findViewById(R.id.name);
     	TextView distance = (TextView) findViewById(R.id.distance);

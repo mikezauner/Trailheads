@@ -1,26 +1,50 @@
 package com.mikezauner.trailheads;
 
 import java.text.DecimalFormat;
-
 import android.content.Context;
-import android.location.Criteria;
+import android.content.SharedPreferences;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class MyLocation {
-	Context mContext;
+	private static Context mContext;
+    private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
+    private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
+	LocationManager locationManager;
+	Location location;
+	MyLocationListener myLL = new MyLocationListener();
+	private SharedPreferences prefs;
 	public MyLocation(Context mContext) {
-		this.mContext = mContext;
+		MyLocation.mContext = mContext;
 	}
 	public Location myLocation() {
-		String context = mContext.LOCATION_SERVICE;
-		Criteria criteria = new Criteria();
-		LocationManager locationManager = (LocationManager) mContext.getSystemService(context);
-    	String provider = locationManager.getBestProvider(criteria, false);
-    	Location location = locationManager.getLastKnownLocation(provider);
+		locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+		prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+		String provider = prefs.getString("location_method", null);
+	    //String context = mContext.LOCATION_SERVICE;
+		//Log.v("LOCATIONVALUES", context);
+		//Criteria criteria = new Criteria();
+    	//String provider = locationManager.getBestProvider(criteria, false);
+    	location = locationManager.getLastKnownLocation(provider);
+    	locationManager.requestLocationUpdates(
+    			                provider,
+    			                MINIMUM_TIME_BETWEEN_UPDATES,
+    			                MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
+    			                myLL
+    			        );
+
     	Log.v("PROVIDER", provider);
     	return location;
+	}
+
+	public void stopService() {
+	    // code to stop updating server
+		locationManager.removeUpdates(myLL);
+		//locationManager = null;
 	}
 	public String CalculateDistance(String dest, Location myLocation) {
 		String[] coords = dest.split(",");
@@ -35,4 +59,19 @@ public class MyLocation {
 		String toMiles = (new DecimalFormat("#.##").format(distance * 0.621371192));
 		return toMiles;
 	}
+    private class MyLocationListener implements LocationListener {
+
+        public void onLocationChanged(Location location) {
+            
+        }
+        public void onStatusChanged(String s, int i, Bundle b) {
+
+        }
+        public void onProviderDisabled(String s) {
+
+        }
+        public void onProviderEnabled(String s) {
+
+        }
+    }
 }

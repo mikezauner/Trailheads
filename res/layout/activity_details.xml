@@ -23,7 +23,7 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_marginTop="10dp"
-         android:gravity="center_horizontal"
+         android:gravity="center"
          android:textAppearance="?android:attr/textAppearanceMedium"
          android:textSize="30dp" />
 
@@ -63,6 +63,15 @@
             android:scaleType="fitStart" />
 
         </LinearLayout>
+</TableRow>
+<TableRow>
+            <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="left"
+            android:scaleType="fitStart" />
+    
 </TableRow>
 <TableRow>
     <TextView

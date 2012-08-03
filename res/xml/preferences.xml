@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/pref_location"
+        android:key="pref_location_settings">			
+	<ListPreference
+		android:key="location_method"
+		android:title="Location Method"
+		android:summary="Define how to locate your current position" 
+		android:entries="@array/locationArray"
+		android:entryValues="@array/locationValues" />
+	</PreferenceCategory>
+</PreferenceScreen>
