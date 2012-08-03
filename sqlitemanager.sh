@@ -4,8 +4,25 @@ echo "Welcome to the database manager for TrailHeads! We'll be asking a few"
 echo "short questions to add data to the database in a sane manner."
 
 #
-# Structure is as follows:  name varchar[30], coords varchar[30], difficulty smallint, description varchar[200], facilities varchar[30]
+# Structure is as follows:  name text, coords text, difficulty smallint, description text, facilities text, id (primary key), permit text
 #
+
+permitlogic () {
+echo -n "Permit Required: "
+read permit;
+shopt -s nocasematch
+if [[ $permit == y* ]]
+then
+    permitout="1"
+elif [[ $permit == n* ]]
+then
+    permitout="0"
+else
+    echo "I'm sorry, I don't understand.  Restarting..."
+    permitlogic;
+fi
+
+}
 
 #
 # Retrieve all necessary data, and write to database.
@@ -24,7 +41,8 @@ read facilities;
 echo -n "Length: "
 read length;
 
-sqlite3 TrailHeads.sql "insert into trails values('$name', '$coords', '$difficulty', '$description', '$facilities', '$length');";
+permitlogic;
+sqlite3 TrailHeads.sql "insert into trails values('$name', '$coords', '$difficulty', '$description', '$facilities', '$length', '$permitout');";
 }
 
 #

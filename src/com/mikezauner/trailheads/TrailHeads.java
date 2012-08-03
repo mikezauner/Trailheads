@@ -71,8 +71,12 @@ public class TrailHeads extends ListActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_settings:
-			Intent intent = new Intent(this.getApplicationContext(), Preferences.class);
-			startActivity(intent);
+			Intent settings = new Intent(this.getApplicationContext(), Preferences.class);
+			startActivity(settings);
+			return true;
+		case R.id.menu_about:
+			Intent about = new Intent(this.getApplicationContext(), About.class);
+			startActivity(about);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
