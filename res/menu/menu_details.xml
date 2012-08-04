@@ -2,7 +2,10 @@
     <item android:id="@+id/menu_settings"
         android:title="@string/menu_settings"
         android:orderInCategory="100" />
-        <item android:id="@+id/menu_about"
+    <item android:id="@+id/menu_about"
         android:title="@string/menu_about" 
         android:orderInCategory="101"/>
+    <item android:id="@+id/menu_addmap"
+        android:title="@string/menu_addmap"
+        android:orderInCategory="102" />
 </menu>

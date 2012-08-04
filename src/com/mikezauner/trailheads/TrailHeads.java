@@ -78,6 +78,10 @@ public class TrailHeads extends ListActivity {
 			Intent about = new Intent(this.getApplicationContext(), About.class);
 			startActivity(about);
 			return true;
+		case R.id.menu_addmap:
+			Intent submit = new Intent(this.getApplicationContext(), Submit.class);
+			startActivity(submit);
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}

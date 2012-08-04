@@ -9,14 +9,15 @@ public class Submit extends Activity {
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		sendEmail();
 	}
 	
 	private void sendEmail() {
 // TODO: Fill out email method.
 		Intent i = new Intent(Intent.ACTION_SEND);
 		i.setType("message/rfc822");
-		i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"recipient@example.com"});
-		i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
+		i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"addmap@mikezauner.com"});
+		i.putExtra(Intent.EXTRA_SUBJECT, "Map Addition");
 		i.putExtra(Intent.EXTRA_TEXT   , "body of email");
 		try {
 		    startActivity(Intent.createChooser(i, "Send mail..."));

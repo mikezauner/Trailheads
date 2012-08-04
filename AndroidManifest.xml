@@ -31,5 +31,6 @@
         <activity android:name=".TrailListData" />
         <activity android:name=".Preferences"/>
 		<activity android:name=".About"/>
-        			</application>
+ 		<activity android:name=".Submit"/>
+					</application>
 </manifest>
