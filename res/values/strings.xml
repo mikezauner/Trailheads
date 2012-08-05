@@ -9,4 +9,9 @@
 	<string name="menu_addmap">Add Map</string>
 	<string name="pref_location">Location Settings</string>
 	<string name="pref_state">State Settings</string>
+	<string name="name">Enter the Trail Name</string>
+	<string name="coords">Use current location?</string>
+	<string name="length">Enter the length of the trail in miles</string>
+	<string name="description">Enter a description or summation of the trail</string>
+	<string name="facilities">What available facilities are there at this trail?</string>
 </resources>
