@@ -44,23 +44,29 @@ public class Details extends Activity {
 		switch (item.getItemId()) {
 		case R.id.menu_settings:
 			Intent intent = new Intent(this.getApplicationContext(), Preferences.class);
+			myLocation.stopService();
 			mDbHelper.close();
 			startActivity(intent);
 			return true;
 		case R.id.menu_about:
 			Intent about = new Intent(this.getApplicationContext(), About.class);
+     	    myLocation.stopService();
+			mDbHelper.close();
 			startActivity(about);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
     }
+//TODO: Figure out bug with not disconnecting from GPS with onResume()...
     @Override
     protected void onResume() {
     	super.onResume();
     	onCreate(null);
+    	mDbHelper.close();
+  	    myLocation.stopService();
     }
-    
+  
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);

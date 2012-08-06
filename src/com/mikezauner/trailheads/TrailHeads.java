@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
-
 public class TrailHeads extends ListActivity {
     //private static final int NEXT_ID = Menu.FIRST;
 	private DatabaseHandler mDbHelper;
@@ -25,10 +24,44 @@ public class TrailHeads extends ListActivity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
+/*    	setContentView(R.layout.activity_trailheads);
+    	myLocation = new MyLocation(this);
+    	location = myLocation.myLocation();
+    	mDbHelper = new DatabaseHandler(this);
+        mDbHelper.open();
+    	ArrayList<TrailListData> m_list = new ArrayList<TrailListData>();
+    	Cursor names = null;
+    	try {
+            names = mDbHelper.getAllTrails();
+    	}
+    	catch (Exception e) {
+    		Log.v("EXCEPTION", ""+e);
+    		
+    	}
+        names.moveToFirst();
+        while (!names.isAfterLast()) {
+        	// The top line is just the name.
+        	String name = names.getString(names.getColumnIndexOrThrow(DatabaseHandler.KEY_NAME));
+        	// Calculating the bottom line isn't so easy...
+        	// First, we need the TH location.
+        	String Coords = names.getString(names.getColumnIndexOrThrow(DatabaseHandler.KEY_COORDS));
+        	// Then calculate the distance, and set to cList.bottom.
+        	String dist = myLocation.CalculateDistance(Coords, location);
+        	TrailListData list = new TrailListData();
+        	list.setName(name);
+        	list.setDistance(dist);
+        	m_list.add(list);
+        	names.moveToNext();
+        }
+		// connecting the list adapter to this ListActivity
+        final ListView lv = (ListView) findViewById(android.R.id.list);
+        lv.setAdapter(new CustomList(this, m_list));
+        mDbHelper.close(); */
+    }
+	@Override
+	protected void onResume() {
+		super.onResume();
     	setContentView(R.layout.activity_trailheads);
-    	// Restore preferences
-    	//SharedPreferences settings = getSharedPreferences("MyParams", 0);  // zero is the default
-    	//boolean booleanParam = settings.getBoolean("booleanParam", false); //false is the default
     	myLocation = new MyLocation(this);
     	location = myLocation.myLocation();
     	mDbHelper = new DatabaseHandler(this);
@@ -61,16 +94,13 @@ public class TrailHeads extends ListActivity {
         final ListView lv = (ListView) findViewById(android.R.id.list);
         lv.setAdapter(new CustomList(this, m_list));
         mDbHelper.close();
-    }
-	@Override
-	protected void onResume() {
-		super.onResume();
-		onCreate(null);
 	}
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		position++;
 		Intent intent = new Intent(this.getApplicationContext(), Details.class);
+	     // Stop GPS
+        myLocation.stopService();		
 		mDbHelper.close();
 		intent.putExtra("position", position);
 		startActivity(intent);
@@ -80,14 +110,20 @@ public class TrailHeads extends ListActivity {
 		switch (item.getItemId()) {
 		case R.id.menu_settings:
 			Intent settings = new Intent(this.getApplicationContext(), Preferences.class);
+		     // Stop GPS
+	        myLocation.stopService();
 			startActivity(settings);
 			return true;
 		case R.id.menu_about:
 			Intent about = new Intent(this.getApplicationContext(), About.class);
-			startActivity(about);
+		     // Stop GPS
+	        myLocation.stopService();
+	        startActivity(about);
 			return true;
 		case R.id.menu_addmap:
 			Intent submit = new Intent(this.getApplicationContext(), Submit.class);
+		     // Stop GPS
+	        myLocation.stopService();
 			startActivity(submit);
 			return true;
 		default:

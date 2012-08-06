@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,8 +20,7 @@ public class Submit extends Activity {
 	    LayoutInflater factory = LayoutInflater.from(this);            
 		final View editTextView = factory.inflate(R.layout.layout_submit, null);
 		Context context = this;
-		Button button;
-		
+// TODO: Add checkbox listener, and change visibility of additional text box accordingly.		
 		EditText name = (EditText) editTextView.findViewById(R.id.editText1);
 		EditText description = (EditText) editTextView.findViewById(R.id.editText3);
 		EditText facilities = (EditText) editTextView.findViewById(R.id.editText4);

@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent" 
+    android:gravity="center" >
 
     <EditText
         android:id="@+id/editText1"
@@ -11,7 +12,7 @@
 
         <requestFocus />
     </EditText>
-    <RadioButton 
+    <CheckBox 
         android:id="@+id/currentLocation"
         android:hint="@string/coords"
         android:layout_below="@+id/editText1"
