@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Submit extends Activity {
@@ -21,13 +22,16 @@ public class Submit extends Activity {
 		final View editTextView = factory.inflate(R.layout.layout_submit, null);
 		Context context = this;
 		Button button;
+		
 		EditText name = (EditText) editTextView.findViewById(R.id.editText1);
 		EditText description = (EditText) editTextView.findViewById(R.id.editText3);
 		EditText facilities = (EditText) editTextView.findViewById(R.id.editText4);
 		EditText length = (EditText) editTextView.findViewById(R.id.editText2);
-		
-		AlertDialog.Builder alert= new AlertDialog.Builder(context);
-		alert.create();
+		name.setText(null, TextView.BufferType.EDITABLE);
+		description.setText(null, TextView.BufferType.EDITABLE);
+		facilities.setText(null, TextView.BufferType.EDITABLE);
+		length.setText(null, TextView.BufferType.EDITABLE);
+		final AlertDialog.Builder alert= new AlertDialog.Builder(context);
 		alert.setTitle("Submit A New Map");
 
 		alert.setView(editTextView);

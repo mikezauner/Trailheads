@@ -8,6 +8,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,7 +34,14 @@ public class TrailHeads extends ListActivity {
     	mDbHelper = new DatabaseHandler(this);
         mDbHelper.open();
     	ArrayList<TrailListData> m_list = new ArrayList<TrailListData>();
-        Cursor names = mDbHelper.getAllTrails();
+    	Cursor names = null;
+    	try {
+            names = mDbHelper.getAllTrails();
+    	}
+    	catch (Exception e) {
+    		Log.v("EXCEPTION", ""+e);
+    		
+    	}
         names.moveToFirst();
         while (!names.isAfterLast()) {
         	// The top line is just the name.
@@ -52,14 +60,14 @@ public class TrailHeads extends ListActivity {
 		// connecting the list adapter to this ListActivity
         final ListView lv = (ListView) findViewById(android.R.id.list);
         lv.setAdapter(new CustomList(this, m_list));
+        mDbHelper.close();
     }
-/*	@Override
+	@Override
 	protected void onResume() {
 		super.onResume();
-    	myLocation = new MyLocation(this);
-    	location = myLocation.myLocation();
+		onCreate(null);
 	}
-*/	@Override
+	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		position++;
 		Intent intent = new Intent(this.getApplicationContext(), Details.class);
@@ -98,6 +106,8 @@ public class TrailHeads extends ListActivity {
        editor.putBoolean("booleanParam", true);
 // Save changes
        editor.commit();       
+// Disconnect from the DB.
+       mDbHelper.close();
     }
     
     @Override
@@ -111,6 +121,8 @@ public class TrailHeads extends ListActivity {
         editor.putBoolean("booleanParam", true);
 // Save changes
         editor.commit();
+// Disconnect from the DB.
+        mDbHelper.close();
     }
     @Override
     protected void onPause() {
@@ -123,6 +135,8 @@ public class TrailHeads extends ListActivity {
         editor.putBoolean("booleanParam", true);
 // Save changes
         editor.commit();
+// Disconnect from the DB.
+        mDbHelper.close();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

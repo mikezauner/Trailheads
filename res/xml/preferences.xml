@@ -18,6 +18,6 @@
 	    android:title="State"
 	    android:summary="Select a state for offline map use"
 	    android:entries="@array/stateArray"
-	    android:entryValues="@array/stateArray"/>
+	    android:entryValues="@array/stateValues"/>
 	</PreferenceCategory>
 </PreferenceScreen>

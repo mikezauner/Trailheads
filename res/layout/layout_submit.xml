@@ -7,8 +7,6 @@
         android:hint="@string/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:ems="10" >
 
         <requestFocus />
@@ -16,15 +14,15 @@
     <RadioButton 
         android:id="@+id/currentLocation"
         android:hint="@string/coords"
+        android:layout_below="@+id/editText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
         <EditText
         android:id="@+id/editText2"
         android:hint="@string/length"
+        android:layout_below="@+id/currentLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:ems="10" >
 
         <requestFocus />
@@ -32,10 +30,9 @@
        <EditText
         android:id="@+id/editText3"
         android:hint="@string/description"
+        android:layout_below="@+id/editText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:ems="10" >
 
         <requestFocus />
@@ -43,10 +40,9 @@
         <EditText
         android:id="@+id/editText4"
         android:hint="@string/facilities"
+        android:layout_below="@+id/editText3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:ems="10" >
 
         <requestFocus />

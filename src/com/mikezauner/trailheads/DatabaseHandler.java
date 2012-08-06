@@ -1,10 +1,13 @@
 package com.mikezauner.trailheads;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class DatabaseHandler {
 
@@ -20,16 +23,27 @@ public class DatabaseHandler {
     private static DatabaseHelper mDbHelper;
     private static SQLiteDatabase mDb;
 
-
     private static final String DATABASE_NAME = "TrailHeads.sqlite";
-    private static final String TABLE_TRAILS = "trails";
     private static final int DATABASE_VERSION = 2;
 
-    private static Context mCtx;
-
+    private static Context mContext;
+    private static SharedPreferences prefs;
+    private static String state;
+    private static final String TableName() {
+    	String trails = "";
+    	try {
+    		prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+    		state = prefs.getString("state", null);
+    		trails = state + "_trails";
+    	}
+    	catch (Exception e) {
+    		Log.v("EXCEPTION", ""+e);
+    	}
+    	return trails;
+    }
     private static class DatabaseHelper extends SQLiteOpenHelper {
 
-        DatabaseHelper(Context context) {
+     DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }      
         
@@ -44,6 +58,7 @@ public class DatabaseHandler {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     	// Drop old tables if they're there.
+    	String TABLE_TRAILS = TableName();
     	db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRAILS);
     	
     	// Insert new!
@@ -51,19 +66,20 @@ public class DatabaseHandler {
     }
     }
     public DatabaseHandler(Context ctx) {
-        DatabaseHandler.mCtx = ctx;
+        DatabaseHandler.mContext = ctx;
     }
     public DatabaseHandler close() throws SQLException {
         mDb.close();
         return this;
     } 
     public DatabaseHandler open() throws SQLException {
-        mDbHelper = new DatabaseHelper(mCtx);
+        mDbHelper = new DatabaseHelper(mContext);
         mDb = mDbHelper.getWritableDatabase();
         return this;
     } 
  // Getting single contact
     public Cursor getTrail(int id) throws SQLException {
+    	String TABLE_TRAILS = TableName();
         Cursor mCursor =
 
                 mDb.query(true, TABLE_TRAILS, new String[] {KEY_ID,
@@ -77,12 +93,14 @@ public class DatabaseHandler {
      
     // Getting All Trail Names.
     public Cursor getAllTrails() {
+    	String TABLE_TRAILS = TableName();
         // Select All Query
         Cursor mCursor = mDb.query(true, TABLE_TRAILS, new String[] {KEY_NAME, KEY_COORDS}, null, null, null, null, null, null);
         return mCursor;
     }
     
     public int getCount() {
+    	String TABLE_TRAILS = TableName();
     	int count;
     	String query = "SELECT COUNT(*) FROM " + TABLE_TRAILS;
     	Cursor cursorCount = mDb.rawQuery(query, null);

@@ -40,9 +40,11 @@ echo -n "Facilities: "
 read facilities;
 echo -n "Length: "
 read length;
+echo -n "State (HINT: use _ instead of \" \"): "
+read state;
 
 permitlogic;
-sqlite3 TrailHeads.sql "insert into trails values('$name', '$coords', '$difficulty', '$description', '$facilities', '$length', '$permitout');";
+sqlite3 TrailHeads.sql "insert into \"$state"_trails"\" values('$name', '$coords', '$difficulty', '$description', '$facilities', '$length', '$permitout');";
 }
 
 #

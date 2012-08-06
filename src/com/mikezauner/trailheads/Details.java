@@ -44,6 +44,7 @@ public class Details extends Activity {
 		switch (item.getItemId()) {
 		case R.id.menu_settings:
 			Intent intent = new Intent(this.getApplicationContext(), Preferences.class);
+			mDbHelper.close();
 			startActivity(intent);
 			return true;
 		case R.id.menu_about:
@@ -54,6 +55,11 @@ public class Details extends Activity {
 			return super.onOptionsItemSelected(item);
 		}
     }
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	onCreate(null);
+    }
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -63,19 +69,22 @@ public class Details extends Activity {
         return true;
     }
 
-   @Override
+    @Override
     protected void onStop() {
 	   super.onStop();
-    	myLocation.stopService();
+	   mDbHelper.close();
+	   myLocation.stopService();
     }
    @Override
    protected void onDestroy() {
 	   super.onDestroy();
+	   mDbHelper.close();
 	   myLocation.stopService();
    }
- //  @Override
+//   @Override
 //   protected void onPause() {
 //	   super.onPause();
+//	   mDbHelper.close();
 //	   myLocation.stopService();
 //   }
    public boolean displayNext(int id) {
