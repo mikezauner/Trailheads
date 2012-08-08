@@ -17,11 +17,19 @@
         android:hint="@string/coords"
         android:layout_below="@+id/editText1"
         android:layout_width="wrap_content"
+        android:checked="true"
         android:layout_height="wrap_content"/>
+        <EditText
+        android:id="@+id/coords"
+        android:layout_below="@+id/currentLocation"
+        android:hint="@string/enterCoords"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
         <EditText
         android:id="@+id/editText2"
         android:hint="@string/length"
-        android:layout_below="@+id/currentLocation"
+        android:layout_below="@+id/coords"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10" >
