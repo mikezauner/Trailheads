@@ -3,6 +3,7 @@ package com.mikezauner.trailheads;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -131,12 +132,16 @@ public class Details extends Activity {
         	image9.setImageResource(R.drawable.ic_star);
         	break;
         }
-        ImageView image10 = (ImageView) findViewById(R.id.imageView4);
+        TextView drawable = (TextView) findViewById(R.id.permitString);
+        Drawable check = getBaseContext().getResources().getDrawable( R.drawable.ic_check );
+        check.setBounds(0,0,30,30);
+        Drawable exclamation = getBaseContext().getResources().getDrawable( R.drawable.ic_exclamation );
+        exclamation.setBounds(0,0,30,30);
         if (permit == 0) {
-        	image10.setImageResource(R.drawable.ic_check);
+        	drawable.setCompoundDrawables(null, null, check, null);
         }
         else {
-        	image10.setImageResource(R.drawable.ic_exclamation);
+        	drawable.setCompoundDrawables(null, null, exclamation, null);
         }
     	TextView name = (TextView)findViewById(R.id.name);
     	TextView distance = (TextView) findViewById(R.id.distance);

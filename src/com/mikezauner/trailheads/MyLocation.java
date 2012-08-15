@@ -8,7 +8,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 public class MyLocation {
 	private static Context mContext;
@@ -25,10 +24,6 @@ public class MyLocation {
 		locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
 		prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 		String provider = prefs.getString("location_method", null);
-	    //String context = mContext.LOCATION_SERVICE;
-		//Log.v("LOCATIONVALUES", context);
-		//Criteria criteria = new Criteria();
-    	//String provider = locationManager.getBestProvider(criteria, false);
     	location = locationManager.getLastKnownLocation(provider);
     	locationManager.requestLocationUpdates(
     			                provider,
@@ -36,8 +31,6 @@ public class MyLocation {
     			                MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
     			                myLL
     			        );
-
-    	Log.v("PROVIDER", provider);
     	return location;
 	}
 

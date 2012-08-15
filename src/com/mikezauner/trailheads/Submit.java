@@ -100,7 +100,7 @@ public class Submit extends Activity {
    @Override
    protected void onDestroy() {
 	   super.onDestroy();
-	   myLocation.stopService();
+ 	   myLocation.stopService();
    }
 //   @Override
 //   protected void onPause() {
