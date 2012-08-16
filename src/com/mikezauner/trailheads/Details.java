@@ -137,10 +137,7 @@ public class Details extends Activity {
         check.setBounds(0,0,30,30);
         Drawable exclamation = getBaseContext().getResources().getDrawable( R.drawable.ic_exclamation );
         exclamation.setBounds(0,0,30,30);
-        if (permit == 0) {
-        	drawable.setCompoundDrawables(null, null, check, null);
-        }
-        else {
+        if (permit == 1) {
         	drawable.setCompoundDrawables(null, null, exclamation, null);
         }
     	TextView name = (TextView)findViewById(R.id.name);

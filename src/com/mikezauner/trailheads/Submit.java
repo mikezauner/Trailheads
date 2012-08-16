@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.location.Location;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class Submit extends Activity {
 	private MyLocation myLocation;
@@ -41,7 +39,6 @@ public class Submit extends Activity {
 		
 // Start an onClickListener for the use current location checkbox.  We should change UI accordingly.
 		useCurrent.setOnClickListener(new View.OnClickListener() {
-			@Override
 			public void onClick(View v) {
 				if (((CheckBox)v).isChecked() == false) {
 					enterCoords.setText(null, TextView.BufferType.EDITABLE);
