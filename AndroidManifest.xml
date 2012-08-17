@@ -2,8 +2,10 @@
     package="com.mikezauner.trailheads"
     android:versionCode="1"
     android:versionName="1.0" >
-		<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-		<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    	<uses-permission android:name="android.permission.SET_DEBUG_APP"/>
+		<uses-permission android:name="android.permission.INTERNET" />
+    	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
@@ -26,7 +28,6 @@
                 <action android:name="com.google.android.apps.maps"></action>
             </intent-filter>
 		</activity>
-		<activity android:name=".MyLocation" />
         <activity android:name=".CustomList" />
         <activity android:name=".TrailListData" />
         <activity android:name=".Preferences"/>

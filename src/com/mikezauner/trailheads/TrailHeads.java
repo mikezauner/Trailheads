@@ -1,10 +1,11 @@
 package com.mikezauner.trailheads;
 
-
 import java.util.ArrayList;
 import android.location.Location;
 import android.os.Bundle;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -19,18 +20,33 @@ public class TrailHeads extends ListActivity {
     //private static final int NEXT_ID = Menu.FIRST;
 	private DatabaseHandler mDbHelper;
 	MyLocation myLocation;
+	private static Context context;
+	private static ProgressDialog progressBar;
 	Location location;
 	TrailListData list;
+	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
     }
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
     	setContentView(R.layout.activity_trailheads);
-    	myLocation = new MyLocation(this);
-    	location = myLocation.myLocation();
+    	progressBar = ProgressDialog.show(this,  "",  "Acquiring Location", true, false);
+    	new Thread(){
+    		@Override
+    	    public void run() {
+    	        myLocation = new MyLocation(context);
+    	        location = myLocation.myLocation();
+    	        while (location == null) {}
+                // After receiving first GPS Fix dismiss the Progress Dialog
+                //progressBar.dismiss();
+                //return;
+    	    }
+    	}.start();
+    	progressBar.dismiss();
     	mDbHelper = new DatabaseHandler(this);
         mDbHelper.open();
     	ArrayList<TrailListData> m_list = new ArrayList<TrailListData>();
@@ -49,8 +65,14 @@ public class TrailHeads extends ListActivity {
         	// Calculating the bottom line isn't so easy...
         	// First, we need the TH location.
         	String Coords = names.getString(names.getColumnIndexOrThrow(DatabaseHandler.KEY_COORDS));
+        	String dist = null;
         	// Then calculate the distance, and set to cList.bottom.
-        	String dist = myLocation.CalculateDistance(Coords, location);
+        	try {
+        	dist = myLocation.CalculateDistance(Coords, location);
+        	}
+        	catch (Exception e) {
+        		Log.v("DISTANCE", ""+e);
+        	}
         	TrailListData list = new TrailListData();
         	list.setName(name);
         	list.setDistance(dist);

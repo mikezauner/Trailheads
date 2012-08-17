@@ -8,30 +8,43 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class MyLocation {
 	private static Context mContext;
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
-	LocationManager locationManager;
-	Location location;
-	MyLocationListener myLL = new MyLocationListener();
+	private LocationManager locationManager;
+	private Location location;
+	private MyLocationListener myLL = new MyLocationListener();
 	private SharedPreferences prefs;
 	public MyLocation(Context mContext) {
 		MyLocation.mContext = mContext;
 	}
 	public Location myLocation() {
-		locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+		Log.v("STARTLOC", "Location Service Start");
+/*		locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
 		prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 		String provider = prefs.getString("location_method", null);
-    	location = locationManager.getLastKnownLocation(provider);
+		Log.v("PROVIDER", provider);
+	    final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+	    if (!gpsEnabled) {
+	        Log.v("GPS", "Falling back to network...");
+	        SharedPreferences.Editor prefEditor = prefs.edit();
+	        prefEditor.putString("location_method", "network");
+	        prefEditor.commit();
+	        provider = prefs.getString("location_method", null);
+	    }
+	    //location = locationManager.getLastKnownLocation(provider);
     	locationManager.requestLocationUpdates(
     			                provider,
     			                MINIMUM_TIME_BETWEEN_UPDATES,
     			                MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
     			                myLL
     			        );
-    	return location;
+    	return location; */
+		return location;
 	}
 
 	public void stopService() {
@@ -53,7 +66,6 @@ public class MyLocation {
 		return toMiles;
 	}
     private class MyLocationListener implements LocationListener {
-
         public void onLocationChanged(Location location) {
             
         }

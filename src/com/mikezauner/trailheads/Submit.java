@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.location.Location;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 public class Submit extends Activity {
 	private MyLocation myLocation;
-	private Location location;
 	private Context context = this;
 	private EditText name;
 	private EditText description;
@@ -26,7 +24,7 @@ public class Submit extends Activity {
 		super.onResume();
 // Start reading the location...
     	myLocation = new MyLocation(this);
-    	location = myLocation.myLocation();
+    	myLocation.myLocation();
 // Create layoutinflater object, then start building the UI.
 	    LayoutInflater factory = LayoutInflater.from(this);
 		final View editTextView = factory.inflate(R.layout.layout_submit, null);

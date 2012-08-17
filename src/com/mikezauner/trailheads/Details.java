@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class Details extends Activity {
-//    private static final int NEXT_ID = Menu.FIRST;
     private Cursor TrailCursor;
 	private DatabaseHandler mDbHelper;
 	private MyLocation myLocation;
