@@ -23,7 +23,7 @@ public class MyLocation {
 	}
 	public Location myLocation() {
 		Log.v("STARTLOC", "Location Service Start");
-/*		locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+		locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
 		prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 		String provider = prefs.getString("location_method", null);
 		Log.v("PROVIDER", provider);
@@ -43,7 +43,6 @@ public class MyLocation {
     			                MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
     			                myLL
     			        );
-    	return location; */
 		return location;
 	}
 
