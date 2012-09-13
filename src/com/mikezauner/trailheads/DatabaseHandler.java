@@ -11,20 +11,8 @@ import android.util.Log;
 
 public class DatabaseHandler {
 
-    public static final String KEY_NAME = "name";
-    public static final String KEY_DIFFICULTY= "difficulty";
-    public static final String KEY_ID = "id";
-    public static final String KEY_DESCRIPTION = "description";
-    public static final String KEY_COORDS = "coords";
-    public static final String KEY_LENGTH = "length";
-    public static final String KEY_FACILITIES = "facilities";
-    public static final String KEY_PERMIT = "permit";
-
     private static DatabaseHelper mDbHelper;
     private static SQLiteDatabase mDb;
-
-    private static final String DATABASE_NAME = "TrailHeads.sqlite";
-    private static final int DATABASE_VERSION = 2;
 
     private static Context mContext;
     private static SharedPreferences prefs;
@@ -44,7 +32,7 @@ public class DatabaseHandler {
     private static class DatabaseHelper extends SQLiteOpenHelper {
 
      DatabaseHelper(Context context) {
-            super(context, DATABASE_NAME, null, DATABASE_VERSION);
+            super(context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
         }      
         
     public void onCreate(SQLiteDatabase db) {
@@ -82,8 +70,8 @@ public class DatabaseHandler {
     	String TABLE_TRAILS = TableName();
         Cursor mCursor =
 
-                mDb.query(true, TABLE_TRAILS, new String[] {KEY_ID,
-                        KEY_NAME, KEY_COORDS, KEY_DIFFICULTY, KEY_DESCRIPTION, KEY_FACILITIES, KEY_LENGTH, KEY_PERMIT}, KEY_ID + "=" + id, null,
+                mDb.query(true, TABLE_TRAILS, new String[] {Constants.KEY_ID,
+                        Constants.KEY_NAME, Constants.KEY_COORDS, Constants.KEY_DIFFICULTY, Constants.KEY_DESCRIPTION, Constants.KEY_FACILITIES, Constants.KEY_LENGTH, Constants.KEY_PERMIT}, Constants.KEY_ID + "=" + id, null,
                         null, null, null, null);
             if (mCursor != null) {
                 mCursor.moveToFirst();
@@ -95,7 +83,7 @@ public class DatabaseHandler {
     public Cursor getAllTrails() {
     	String TABLE_TRAILS = TableName();
         // Select All Query
-        Cursor mCursor = mDb.query(true, TABLE_TRAILS, new String[] {KEY_NAME, KEY_COORDS}, null, null, null, null, null, null);
+        Cursor mCursor = mDb.query(true, TABLE_TRAILS, new String[] {Constants.KEY_NAME, Constants.KEY_COORDS}, null, null, null, null, null, null);
         return mCursor;
     }
     

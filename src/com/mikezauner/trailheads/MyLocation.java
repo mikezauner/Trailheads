@@ -11,19 +11,19 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class MyLocation {
-	private static Context mContext;
-    private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
-    private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
-	private LocationManager locationManager;
-	private Location location;
-	private MyLocationListener myLL = new MyLocationListener();
-	private SharedPreferences prefs;
+	static Context mContext;
+    static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
+    static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
+	LocationManager locationManager;
+	Location location;
+	MyLocationListener myLL = new MyLocationListener();
+	SharedPreferences prefs;
 	public MyLocation(Context mContext) {
 		MyLocation.mContext = mContext;
 	}
 	public Location myLocation() {
-		Log.v("STARTLOC", "Location Service Start");
-/*		locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+		Log.v("STARTLOC", Context.LOCATION_SERVICE);
+		locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
 		prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 		String provider = prefs.getString("location_method", null);
 		Log.v("PROVIDER", provider);
@@ -36,14 +36,13 @@ public class MyLocation {
 	        prefEditor.commit();
 	        provider = prefs.getString("location_method", null);
 	    }
-	    //location = locationManager.getLastKnownLocation(provider);
+	    location = locationManager.getLastKnownLocation(provider);
     	locationManager.requestLocationUpdates(
     			                provider,
     			                MINIMUM_TIME_BETWEEN_UPDATES,
     			                MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
     			                myLL
     			        );
-    	return location; */
 		return location;
 	}
 

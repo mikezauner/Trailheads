@@ -15,9 +15,10 @@ public class About extends Activity {
     	setContentView(R.layout.activity_about);
     	
     	String title = "TrailHeads";
-		String copyright = "©2012 Mike Zauner";
+		String copyright = "��2012 Mike Zauner";
 		String license = "Copyright under GPL";
 		String source = "Source code available at https://github.com/mikezauner/trailheads";
+		String credits = "";
 		String information = "For more information, visit my website at http://trailheads.mikezauner.com";
 		
 		TextView titleView1 = (TextView)findViewById(R.id.titleView1);
@@ -25,12 +26,14 @@ public class About extends Activity {
 		TextView textView2 = (TextView)findViewById(R.id.textView2);
 		TextView textView3 = (TextView)findViewById(R.id.textView3);
 		TextView textView4 = (TextView)findViewById(R.id.textView4);
+		TextView textView5 = (TextView)findViewById(R.id.textView5);
 		
 		titleView1.setText(title);
 		textView1.setText(copyright);
 		textView2.setText(license);
 		textView3.setText(source);
 		textView4.setText(information);
+		textView5.setText(credits);
 	}
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
